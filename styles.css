@@ -1,3 +1,4 @@
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -83,6 +84,8 @@ body {
     border-radius: 4px; /* Rounded corners */
     background-color: #f0f0f0; /* Light gray background */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+    text-align: justify; /* Justify text for better readability */
+    line-height: 1.6; /* Line spacing for more airy text */
 }
 
 #cloze-text {
@@ -93,25 +96,30 @@ body {
     background-color: #f9f9f9; /* Slightly lighter gray background for the text area */
     border: 1px solid #ddd; /* Light border for the text area */
     border-radius: 4px; /* Rounded corners for the text area */
+    line-height: 1.6; /* Line spacing for more airy text */
 }
 
 #cloze-text span {
     cursor: pointer;
     display: inline-block;
-    margin-right: 4px;
+    margin-right: 6px; /* Space between words */
+    margin-bottom: 6px; /* Space below words to avoid overlapping */
     padding: 5px;
     transition: background-color 0.3s, color 0.3s;
 }
 
 #cloze-text span.selected-word {
-    background-color: #000; /* Noir opaque */
+    background-color: rgba(0, 0, 0, 0.8); /* Opaque black with transparency to see the border */
     color: transparent;
+    border: 1px solid #000; /* Border to better distinguish hidden words */
+    border-radius: 4px;
 }
 
 #cloze-text span.hidden-word {
     color: transparent;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #000; /* Thicker underline for better visibility */
     background-color: #ddd;
+    border-radius: 4px; /* Rounded border for better visual appearance */
 }
 
 #cloze-text span.hidden-word:hover {
@@ -125,8 +133,8 @@ input.word-input {
     font-size: 16px;
     width: auto;
     display: inline-block;
-    margin-right: 4px;
-    margin-bottom: 4px;
+    margin-right: 6px; /* Space between input fields */
+    margin-bottom: 6px; /* Space below input fields */
 }
 
 #original-text-container {
