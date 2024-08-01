@@ -121,10 +121,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (originalTextContainer.style.display === 'none') {
             originalTextContainer.style.display = 'block';
             originalTextContainer.innerText = originalText.value;
-            toggleOriginalTextBtn.innerText = 'Masquer le texte original';
+            toggleOriginalTextBtn.innerText = 'Texte original';
         } else {
             originalTextContainer.style.display = 'none';
-            toggleOriginalTextBtn.innerText = 'Afficher le texte original';
+            toggleOriginalTextBtn.innerText = 'Texte original';
         }
     });
 
