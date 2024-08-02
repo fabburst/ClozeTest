@@ -132,8 +132,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return text
             .normalize('NFD')
             .replace(/[\u0300-\u036f]/g, '') // Remove accents
-            .replace(/['.,?()]/g, '') // Remove specific punctuations
-            .replace(/^[.,?()]+|[.,?()]+$/g, '') // Remove punctuations at the beginning and end of the word
+            .replace(/['.,?():;]/g, '') // Remove specific punctuations
+            .replace(/^[.,?():;]+|[.,?():;]+$/g, '') // Remove punctuations at the beginning and end of the word
             .toLowerCase()
             .replace(/'/g, ''); // Replace apostrophes
     }
