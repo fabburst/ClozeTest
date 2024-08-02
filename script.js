@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 input.classList.add('word-input');
                 input.size = word.length;
                 input.addEventListener('change', function () {
-                    if (normalizeText(input.value) === normalizeText(word)) {
+                    if (normalizeText(input.value.trim()) === normalizeText(word)) { // Normalize and trim
                         input.style.backgroundColor = 'lightgreen';
                         input.disabled = true;
                         input.value = word;
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 input.classList.add('word-input');
                 input.size = word.length;
                 input.addEventListener('change', function () {
-                    if (normalizeText(input.value) === normalizeText(word)) {
+                    if (normalizeText(input.value.trim()) === normalizeText(word)) { // Normalize and trim
                         input.style.backgroundColor = 'lightgreen';
                         input.disabled = true;
                         input.value = word;
@@ -129,6 +129,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function normalizeText(text) {
-        return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/'/g, '');
+        return text
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '') // Remove accents
+            .replace(/['.,?()]/g, '') // Remove specific punctuations
+            .replace(/^[.,?()]+|[.,?()]+$/g, '') // Remove punctuations at the beginning and end of the word
+            .toLowerCase()
+            .replace(/'/g, ''); // Replace apostrophes
     }
 });
