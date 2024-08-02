@@ -21,6 +21,10 @@ document.addEventListener('DOMContentLoaded', function () {
             icon.classList.add('fa-sun');
         }
     });
+    // Ajoutez ce code ici
+    document.getElementById('toggle-dark-mode').addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+    });
     generateClozeBtn.addEventListener('click', function () {
         const text = originalText.value;
         const words = text.split(' ');

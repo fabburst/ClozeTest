@@ -213,3 +213,71 @@ input.word-input {
     word-wrap: break-word;
     text-align: center;
 }
+
+/* Styles pour le mode sombre */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode .navbar {
+    background-color: #1f1f1f;
+}
+
+.dark-mode #header h1,
+.dark-mode #header p {
+    color: #ffffff;
+}
+
+.dark-mode #generate-cloze,
+.dark-mode #reset,
+.dark-mode #validate-words,
+.dark-mode #toggle-original-text {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+.dark-mode #generate-cloze:hover,
+.dark-mode #reset:hover,
+.dark-mode #validate-words:hover,
+.dark-mode #toggle-original-text:hover {
+    background-color: #555555;
+}
+
+.dark-mode #output-container,
+.dark-mode #original-text-container {
+    background-color: #1f1f1f;
+    border-color: #333333;
+}
+
+.dark-mode #cloze-text {
+    background-color: #333333;
+    border-color: #555555;
+}
+
+.dark-mode #original-text {
+    background-color: #333333;
+    border-color: #555555;
+    color: #ffffff;
+}
+
+.dark-mode #mode-select {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+#toggle-dark-mode i.fa-sun {
+    display: inline;
+}
+
+#toggle-dark-mode i.fa-moon {
+    display: none;
+}
+
+body.dark-mode #toggle-dark-mode i.fa-sun {
+    display: none;
+}
+
+body.dark-mode #toggle-dark-mode i.fa-moon {
+    display: inline;
+}
