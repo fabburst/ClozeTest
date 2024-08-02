@@ -229,17 +229,38 @@ body.dark-mode {
     color: #ffffff;
 }
 
-.dark-mode #generate-cloze,
-.dark-mode #reset,
-.dark-mode #validate-words,
+/* Ajoutez les nouvelles couleurs pour le bouton generate-cloze en mode sombre */
+.dark-mode #generate-cloze {
+    background-color: #1C3751;
+    color: white;
+}
+.dark-mode #generate-cloze:hover {
+    background-color: #25303B;
+}
+
+/* Ajoutez les nouvelles couleurs pour le bouton reset en mode sombre */
+.dark-mode #reset {
+    background-color: #490F1D;
+    color: white;
+}
+.dark-mode #reset:hover {
+    background-color: #3E0E1A;
+}
+
+/* Ajoutez les nouvelles couleurs pour le bouton validate-words en mode sombre */
+.dark-mode #validate-words {
+    background-color: #1D562A;
+    color: white;
+}
+.dark-mode #validate-words:hover {
+    background-color: #18371F;
+}
+
 .dark-mode #toggle-original-text {
     background-color: #333333;
     color: #ffffff;
 }
 
-.dark-mode #generate-cloze:hover,
-.dark-mode #reset:hover,
-.dark-mode #validate-words:hover,
 .dark-mode #toggle-original-text:hover {
     background-color: #555555;
 }
