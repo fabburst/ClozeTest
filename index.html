@@ -12,7 +12,7 @@
     <!-- Bandeau de navigation -->
     <header class="navbar">
         <div class="navbar-left">
-            <img src="rabbit.svg" alt="Lapin" class="icon-lapin">
+            <img src="rabbit.svg" alt="Lapin" class="icon-lapin" id="icon-lapin">
             <span>Fabrice B.</span>
         </div>
         <div class="navbar-right">
@@ -23,7 +23,7 @@
 
     <div id="header">
         <h1>Générateur de texte à trous</h1>
-        <p>Collez votre texte dans le champ ci-dessous, choisissez un mode et générez un texte à trou pour pratiquer vos compétences linguistiques.</p>
+        <p>Collez votre texte dans le champ ci-dessous, choisissez un mode et générez un texte à trous pour pratiquer vos compétences linguistiques.</p>
     </div>
     <div id="input-container">
         <textarea id="original-text" placeholder="Collez votre texte ici..."></textarea>
@@ -43,6 +43,59 @@
     <div id="original-text-container" style="display: none;"></div>
     <button id="reset"><i class="fas fa-redo"></i> Réinitialiser</button>
 
+    <div id="info-bubble" class="info-bubble">
+        <p>Bienvenue dans l'application de génération de textes à trous, un outil interactif conçu pour faciliter l'apprentissage des langues et la compréhension des textes. Vous pouvez coller votre texte dans le champ ci-dessous, sélectionner un mode et générer un exercice à trous pour améliorer vos compétences linguistiques.</p>
+        <p><strong>Caractéristiques principales :</strong></p>
+        <p><strong>Saisie et affichage du texte :</strong><br>
+        Collez n'importe quel texte dans la zone de saisie.<br>
+        L'application traite le texte pour créer des exercices à trous.</p>
+        <p><strong>Modes de fonctionnement :</strong><br>
+        <strong>Mode Cacher les mots :</strong> Les mots sont masqués et peuvent être révélés en cliquant dessus.<br>
+        <strong>Mode Taper les mots :</strong> Les utilisateurs saisissent les mots manquants dans les champs prévus à cet effet.</p>
+        <p><strong>Contrôles utilisateur :</strong><br>
+        <strong>Générer un texte à trous :</strong> Cliquez sur le bouton pour créer des exercices à trous à partir du texte saisi.<br>
+        <strong>Sélection de mode :</strong> Utilisez le menu déroulant pour choisir entre les modes "Cacher les mots" et "Taper les mots".<br>
+        <strong>Valider les mots :</strong> Cliquez sur ce bouton pour vérifier les mots saisis par rapport au texte original.<br>
+        <strong>Afficher le texte original :</strong> Bouton pour afficher ou masquer le texte original à des fins de comparaison.<br>
+        <strong>Réinitialiser :</strong> Cliquez pour effacer les zones de saisie et d'affichage afin de commencer un nouvel exercice.</p>
+        <p><strong>Affichage interactif :</strong><br>
+        Le texte à trous est affiché avec des mots masqués ou des champs de saisie, selon le mode sélectionné.<br>
+        Les utilisateurs peuvent interagir avec le texte pour révéler les mots ou saisir les mots manquants.</p>
+        <p><strong>Utilisation :</strong><br>
+        <strong>Coller le texte :</strong><br>
+        Ouvrez l'application et collez votre texte dans la zone de saisie intitulée "Collez votre texte ici...".<br>
+        <strong>Générer un texte à trous :</strong><br>
+        Cliquez sur le bouton "Générer un texte à trous" pour créer l'exercice.<br>
+        <strong>Sélectionner un mode :</strong><br>
+        Utilisez le menu déroulant pour choisir entre "Cacher les mots" et "Taper les mots".<br>
+        <strong>Apprentissage interactif :</strong><br>
+        En mode "Cacher les mots", cliquez sur les mots masqués pour les révéler.<br>
+        En mode "Taper les mots", saisissez les mots manquants dans les champs de texte.</p>
+        <p><strong>Validation et comparaison :</strong><br>
+        Cliquez sur "Valider les mots" pour vérifier vos réponses.<br>
+        Utilisez "Afficher le texte original" pour voir le texte d'origine à des fins de comparaison.</p>
+        <p><strong>Réinitialiser :</strong><br>
+        Cliquez sur "Réinitialiser" pour commencer un nouvel exercice avec un nouveau texte.</p>
+        <p><strong>Avantages :</strong><br>
+        <strong>Apprentissage amélioré :</strong> Aide les apprenants à améliorer leurs compétences linguistiques en interagissant activement avec le texte.<br>
+        <strong>Personnalisation :</strong> Permet de créer des exercices à partir de n'importe quel texte, offrant ainsi des expériences d'apprentissage personnalisées.<br>
+        <strong>Interactivité :</strong> Les fonctionnalités interactives rendent le processus d'apprentissage plus engageant et efficace.<br>
+        <strong>Polyvalence :</strong> Convient à diverses langues et niveaux d'apprentissage.</p>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const iconLapin = document.getElementById('icon-lapin');
+            const infoBubble = document.getElementById('info-bubble');
+    
+            iconLapin.addEventListener('click', function() {
+                infoBubble.style.display = 'block';
+            });
+    
+            infoBubble.addEventListener('click', function() {
+                infoBubble.style.display = 'none';
+            });
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
