@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloze Text</title>
+    <title>Générateur de texte à trous</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div id="header">
@@ -14,7 +15,7 @@
     <div id="input-container">
         <textarea id="original-text" placeholder="Collez votre texte ici..."></textarea>
         <div class="controls">
-            <button id="generate-cloze">Générer</button>
+            <button id="generate-cloze"><i class="fas fa-magic"></i> Générer</button>
             <select id="mode-select">
                 <option value="hide">Cacher les mots</option>
                 <option value="type">Taper les mots</option>
@@ -24,10 +25,10 @@
     <div id="output-container">
         <div id="cloze-text"></div>
     </div>
-    <button id="validate-words" style="display: none;">Valider les mots</button>
-    <button id="toggle-original-text" style="display: none;">Afficher le texte original</button>
+    <button id="validate-words" style="display: none;"><i class="fas fa-check"></i> Valider les mots</button>
+    <button id="toggle-original-text" style="display: none;"><i class="fas fa-eye"></i> Afficher le texte original</button>
     <div id="original-text-container" style="display: none;"></div>
-    <button id="reset">Réinitialiser</button>
+    <button id="reset"><i class="fas fa-redo"></i> Réinitialiser</button>
 
     <script src="script.js"></script>
 </body>
