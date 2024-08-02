@@ -302,3 +302,12 @@ body.dark-mode #toggle-dark-mode i.fa-sun {
 body.dark-mode #toggle-dark-mode i.fa-moon {
     display: inline;
 }
+
+/* Style pour l'icône de lapin */
+.icon-lapin {
+    width: 1.5em; /* Même taille que le texte */
+    height: auto;
+    fill: #26619c; /* Même couleur que le texte Fabrice B. */
+    margin-right: 10px; /* Espacement entre l'icône et le texte */
+    vertical-align: middle; /* Alignement vertical avec le texte */
+}
