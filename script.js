@@ -10,7 +10,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const outputContainer = document.getElementById('output-container');
 
     let selectedWords = [];
-
+    
+    document.getElementById('toggle-dark-mode').addEventListener('click', function() {
+        let icon = this.querySelector('i');
+        if (icon.classList.contains('fa-sun')) {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        } else {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+    });
     generateClozeBtn.addEventListener('click', function () {
         const text = originalText.value;
         const words = text.split(' ');
