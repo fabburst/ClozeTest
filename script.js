@@ -21,7 +21,24 @@ document.addEventListener('DOMContentLoaded', function () {
             icon.classList.add('fa-sun');
         }
     });
-    // Ajoutez ce code ici
+    document.addEventListener('DOMContentLoaded', function() {
+        const iconLapin = document.getElementById('icon-lapin');
+        const infoBubble = document.getElementById('info-bubble');
+        const infoLink = document.getElementById('info-link');
+
+        iconLapin.addEventListener('click', function() {
+            infoBubble.style.display = 'block';
+        });
+
+        infoBubble.addEventListener('click', function() {
+            infoBubble.style.display = 'none';
+        });
+
+        infoLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            infoBubble.style.display = 'block';
+        });
+    });
     document.getElementById('toggle-dark-mode').addEventListener('click', function() {
         document.body.classList.toggle('dark-mode');
     });
