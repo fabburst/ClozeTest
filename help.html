@@ -6,7 +6,47 @@
     <title>Aide - Générateur de texte à trous</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet"> <!-- Ajout de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        img.flexible-img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+        .blog_subtitle {
+            font-size: 1.2em;
+            margin-top: 1em;
+        }
+        .blog_body_content {
+            font-size: 1em;
+            margin-bottom: 1em;
+        }
+        .left-align {
+            text-align: left;
+        }
+        .center-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn-home {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-home i {
+            font-size: 1.2em;
+        }
+        h2, h5.blog_subtitle {
+            color: #333; /* Changez cette couleur pour correspondre à celle du texte du bandeau */
+        }
+    </style>
 </head>
 <body>
     <!-- Bandeau de navigation -->
@@ -23,43 +63,60 @@
 
     <div id="header">
         <h1>Aide</h1>
-        <p>Bienvenue dans l'application de génération de textes à trous, un outil interactif conçu pour faciliter l'apprentissage des langues et la compréhension des textes. Vous pouvez coller votre texte dans la zone de saisie, sélectionner un mode et générer un exercice à trous pour améliorer vos compétences linguistiques.</p>
-        <p><strong>Caractéristiques principales :</strong></p>
-        <p><strong>Saisie et affichage du texte :</strong><br>
-        Collez n'importe quel texte dans la zone de saisie.<br>
-        L'application traite le texte pour créer des exercices à trous.</p>
-        <p><strong>Modes de fonctionnement :</strong><br>
-        <strong>Mode Cacher les mots :</strong> Les mots sont masqués et peuvent être révélés en cliquant dessus.<br>
-        <strong>Mode Taper les mots :</strong> Les utilisateurs saisissent les mots manquants dans les champs prévus à cet effet.</p>
-        <p><strong>Contrôles utilisateur :</strong><br>
-        <strong>Générer un texte à trous :</strong> Cliquez sur le bouton pour créer des exercices à trous à partir du texte saisi.<br>
-        <strong>Sélection de mode :</strong> Utilisez le menu déroulant pour choisir entre les modes "Cacher les mots" et "Taper les mots".<br>
-        <strong>Valider les mots :</strong> Cliquez sur ce bouton pour vérifier les mots saisis par rapport au texte original.<br>
-        <strong>Afficher le texte original :</strong> Bouton pour afficher ou masquer le texte original à des fins de comparaison.<br>
-        <strong>Réinitialiser :</strong> Cliquez pour effacer les zones de saisie et d'affichage afin de commencer un nouvel exercice.</p>
-        <p><strong>Affichage interactif :</strong><br>
-        Le texte à trous est affiché avec des mots masqués ou des champs de saisie, selon le mode sélectionné.<br>
-        Les utilisateurs peuvent interagir avec le texte pour révéler les mots ou saisir les mots manquants.</p>
-        <p><strong>Utilisation :</strong><br>
-        <strong>Coller le texte :</strong><br>
-        Ouvrez l'application et collez votre texte dans la zone de saisie intitulée "Collez votre texte ici...".<br>
-        <strong>Générer un texte à trous :</strong><br>
-        Cliquez sur le bouton "Générer un texte à trous" pour créer l'exercice.<br>
-        <strong>Sélectionner un mode :</strong><br>
-        Utilisez le menu déroulant pour choisir entre "Cacher les mots" et "Taper les mots".<br>
-        <strong>Apprentissage interactif :</strong><br>
-        En mode "Cacher les mots", cliquez sur les mots masqués pour les révéler.<br>
-        En mode "Taper les mots", saisissez les mots manquants dans les champs de texte.</p>
-        <p><strong>Validation et comparaison :</strong><br>
-        Cliquez sur "Valider les mots" pour vérifier vos réponses.<br>
-        Utilisez "Afficher le texte original" pour voir le texte d'origine à des fins de comparaison.</p>
-        <p><strong>Réinitialiser :</strong><br>
-        Cliquez sur "Réinitialiser" pour commencer un nouvel exercice avec un nouveau texte.</p>
-        <p><strong>Avantages :</strong><br>
-        <strong>Apprentissage amélioré :</strong> Aide les apprenants à améliorer leurs compétences linguistiques en interagissant activement avec le texte.<br>
-        <strong>Personnalisation :</strong> Permet de créer des exercices à partir de n'importe quel texte, offrant ainsi des expériences d'apprentissage personnalisées.<br>
-        <strong>Interactivité :</strong> Les fonctionnalités interactives rendent le processus d'apprentissage plus engageant et efficace.<br>
-        <strong>Polyvalence :</strong> Convient à diverses langues et niveaux d'apprentissage.</p>
+        <div class="blog_body_content">
+            <p>Bienvenue dans l'application de génération de textes à trous, un outil interactif conçu pour faciliter l'apprentissage des langues et la compréhension des textes. Vous pouvez coller votre texte dans la zone de saisie, sélectionner un mode et générer un exercice à trous pour améliorer vos compétences linguistiques.</p>
+            <div class="center-button">
+                <a href="index.html" class="btn-home"><i class="fas fa-home"></i> Accueil</a>
+            </div>
+
+            <h2>Étape 1 : Entrez votre texte</h2>
+            <p>Collez votre texte dans le champ prévu à cet effet. Assurez-vous que le texte est correct avant de continuer.</p>
+            <img src="img/image-general.png" alt="Capture d'écran de l'étape 1" class="flexible-img">
+
+            <h2>Étape 2 : Sélectionnez les mots à masquer</h2>
+            <p>Choisissez les mots que vous souhaitez masquer dans le texte. Vous pouvez cliquer sur "Valider les mots" pour confirmer votre sélection.</p>
+            <img src="img/image-fill-all.png" alt="Capture d'écran de l'étape 2" class="flexible-img">
+
+            <h2>Étape 3 : Affichez le texte original</h2>
+            <p>Vous pouvez afficher le texte original à tout moment pour vérifier votre texte initial. Utilisez le bouton "Afficher le texte original".</p>
+            <img src="img/image-gap-type.png" alt="Capture d'écran de l'étape 3" class="flexible-img">
+
+            <h2>Étape 4 : Réinitialiser</h2>
+            <p>Si vous souhaitez réinitialiser le processus, cliquez sur "Réinitialiser" pour recommencer depuis le début.</p>
+            <img src="img/image-gap-red.png" alt="Capture d'écran de l'étape 4" class="flexible-img">
+
+            <h2>Validation des mots</h2>
+            <p>Une fois que vous avez sélectionné les mots à masquer, vous pouvez valider votre sélection en cliquant sur "Valider les mots".</p>
+            <img src="img/image-gap-green.png" alt="Capture d'écran de validation des mots" class="flexible-img">
+
+            <div class="left-align">
+                <h5 class="blog_subtitle">Caractéristiques principales :</h5>
+                <ul>
+                    <li>Saisie et affichage du texte : Collez n'importe quel texte dans la zone de saisie. L'application traite le texte pour créer des exercices à trous.</li>
+                    <li>Modes de fonctionnement : Mode "Cacher les mots" où les mots sont masqués et peuvent être révélés en cliquant dessus, et mode "Taper les mots" où les utilisateurs saisissent les mots manquants.</li>
+                    <li>Contrôles utilisateur : Générer un texte à trous, sélectionner un mode, valider les mots, afficher le texte original, réinitialiser.</li>
+                    <li>Affichage interactif : Le texte à trous est affiché avec des mots masqués ou des champs de saisie, selon le mode sélectionné.</li>
+                </ul>
+
+                <h5 class="blog_subtitle">Utilisation :</h5>
+                <ul>
+                    <li>Coller le texte : Ouvrez l'application et collez votre texte dans la zone de saisie intitulée "Collez votre texte ici...".</li>
+                    <li>Générer un texte à trous : Cliquez sur le bouton "Générer un texte à trous" pour créer l'exercice.</li>
+                    <li>Sélectionner un mode : Utilisez le menu déroulant pour choisir entre "Cacher les mots" et "Taper les mots".</li>
+                    <li>Apprentissage interactif : En mode "Cacher les mots", cliquez sur les mots masqués pour les révéler. En mode "Taper les mots", saisissez les mots manquants dans les champs de texte.</li>
+                </ul>
+
+                <p>Validation et comparaison : Cliquez sur "Valider les mots" pour vérifier vos réponses. Utilisez "Afficher le texte original" pour voir le texte d'origine à des fins de comparaison.</p>
+                <p>Réinitialiser : Cliquez sur "Réinitialiser" pour commencer un nouvel exercice avec un nouveau texte.</p>
+                <h5 class="blog_subtitle">Avantages :</h5>
+                <ul>
+                    <li>Apprentissage amélioré : Aide les apprenants à améliorer leurs compétences linguistiques en interagissant activement avec le texte.</li>
+                    <li>Personnalisation : Permet de créer des exercices à partir de n'importe quel texte, offrant ainsi des expériences d'apprentissage personnalisées.</li>
+                    <li>Interactivité : Les fonctionnalités interactives rendent le processus d'apprentissage plus engageant et efficace.</li>
+                    <li>Polyvalence : Convient à diverses langues et niveaux d'apprentissage.</li>
+                </ul>
+            </div>
+        </div>
     </div>
     <footer>
         <a href="index.html">Retour à la page principale</a>
