@@ -19,15 +19,15 @@ body {
     padding: 10px 20px;
     background-color: inherit;
     font-family: 'Montserrat', sans-serif;
-    border-bottom: none; /* Supprimer la bordure inférieure */
-    margin-bottom: 0; /* Supprimer la marge inférieure */
+    border-bottom: none;
+    margin-bottom: 0;
 }
 
 .navbar-left span {
     font-size: 1.5em;
     font-weight: bold;
-    color: #26619c; /* Couleur identique au lien GitHub */
-    letter-spacing: 0.1em; /* Pour correspondre à l'espacement des lettres */
+    color: #26619c;
+    letter-spacing: 0.1em;
 }
 
 .navbar-right {
@@ -38,7 +38,7 @@ body {
 .navbar-right a {
     margin-right: 20px;
     text-decoration: none;
-    color: #26619c; /* Dark Cerulean */
+    color: #26619c;
     font-size: 1em;
 }
 
@@ -51,7 +51,7 @@ body {
     border: none;
     cursor: pointer;
     font-size: 1.2em;
-    color: #26619c; /* Dark Cerulean */
+    color: #26619c;
 }
 
 #header {
@@ -63,13 +63,14 @@ body {
 #header h1 {
     font-size: 2em;
     margin-bottom: 10px;
-    color: #26619c; /* Dark Cerulean */
+    color: #26619c;
 }
 
 #header p {
     font-size: 1em;
     margin-bottom: 20px;
     color: #333;
+    transition: opacity 0.5s ease;
 }
 
 #input-container, #output-container, #original-text-container {
@@ -112,11 +113,11 @@ body {
 
 /* Bouton Générer */
 #generate-cloze {
-    background-color: #26619c; /* Dark Cerulean */
+    background-color: #26619c;
     color: white;
 }
 #generate-cloze:hover {
-    background-color: #4c7196; /* Lighter shade of Dark Cerulean */
+    background-color: #4c7196;
 }
 
 /* Bouton Réinitialiser */
@@ -215,7 +216,7 @@ input.word-input {
     background-color: #f0f0f0;
     margin-bottom: 20px;
     word-wrap: break-word;
-    text-align: center;
+    text-align: left; /* Aligner le texte à gauche */
 }
 
 /* Styles pour le mode sombre */
@@ -309,17 +310,18 @@ body.dark-mode #toggle-dark-mode i.fa-moon {
 
 /* Style pour l'icône de lapin */
 .icon-lapin {
-    width: 1.5em; /* Même taille que le texte */
+    width: 1.5em;
     height: auto;
-    fill: #26619c; /* Même couleur que le texte Fabrice B. */
-    margin-right: 10px; /* Espacement entre l'icône et le texte */
-    vertical-align: middle; /* Alignement vertical avec le texte */
+    fill: #26619c;
+    margin-right: 10px;
+    vertical-align: middle;
     cursor: pointer;
 }
 
 body.dark-mode .icon-lapin {
     fill: #ffffff;
 }
+
 /* Style pour le bouton Accueil */
 #home-button, #home-button-bottom {
     padding: 10px 20px;
@@ -332,12 +334,12 @@ body.dark-mode .icon-lapin {
     width: 80%;
     max-width: 300px;
     text-align: center;
-    background-color: #26619c; /* Dark Cerulean */
+    background-color: #26619c;
     color: white;
 }
 
 #home-button:hover, #home-button-bottom:hover {
-    background-color: #4c7196; /* Lighter shade of Dark Cerulean */
+    background-color: #4c7196;
 }
 
 /* Mode sombre pour le bouton Accueil */
