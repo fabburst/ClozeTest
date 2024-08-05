@@ -320,3 +320,32 @@ body.dark-mode #toggle-dark-mode i.fa-moon {
 body.dark-mode .icon-lapin {
     fill: #ffffff;
 }
+/* Style pour le bouton Accueil */
+#home-button, #home-button-bottom {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 10px 0;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+    background-color: #26619c; /* Dark Cerulean */
+    color: white;
+}
+
+#home-button:hover, #home-button-bottom:hover {
+    background-color: #4c7196; /* Lighter shade of Dark Cerulean */
+}
+
+/* Mode sombre pour le bouton Accueil */
+.dark-mode #home-button, .dark-mode #home-button-bottom {
+    background-color: #1C3751;
+    color: white;
+}
+
+.dark-mode #home-button:hover, .dark-mode #home-button-bottom:hover {
+    background-color: #25303B;
+}

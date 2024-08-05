@@ -53,7 +53,7 @@
     <header class="navbar">
         <div class="navbar-left">
             <img src="rabbit.svg" alt="Lapin" class="icon-lapin" id="icon-lapin">
-            <span>Fabrice B.</span>
+            <span>FB</span>
         </div>
         <div class="navbar-right">
             <a href="index.html" id="help-toggle"><i class="fas fa-question-circle"></i></a>
@@ -66,7 +66,7 @@
         <div class="blog_body_content">
             <p>Bienvenue dans l'application de génération de textes à trous, un outil interactif conçu pour faciliter l'apprentissage des langues et la compréhension des textes. Vous pouvez coller votre texte dans la zone de saisie, sélectionner un mode et générer un exercice à trous pour améliorer vos compétences linguistiques.</p>
             <div class="center-button">
-                <a href="index.html" class="btn-home"><i class="fas fa-home"></i> Accueil</a>
+                <button id="home-button"><i class="fas fa-home"></i> Accueil</button>
             </div>
 
             <h2>Étape 1 : Entrez votre texte</h2>
@@ -119,7 +119,9 @@
         </div>
     </div>
     <footer>
-        <a href="index.html">Retour à la page principale</a>
+        <div class="center-button">
+            <button id="home-button-bottom"><i class="fas fa-home"></i> Accueil</button>
+        </div>
     </footer>
 
     <script>
@@ -160,6 +162,22 @@
                     window.location.href = 'help.html';
                 }
             });
+
+            // Ajout de l'événement pour le bouton Accueil
+            const homeButton = document.getElementById('home-button');
+            if (homeButton) {
+                homeButton.addEventListener('click', function () {
+                    window.location.href = 'index.html';
+                });
+            }
+
+            // Ajout de l'événement pour le bouton Accueil en bas de page
+            const homeButtonBottom = document.getElementById('home-button-bottom');
+            if (homeButtonBottom) {
+                homeButtonBottom.addEventListener('click', function () {
+                    window.location.href = 'index.html';
+                });
+            }
         });
     </script>
 </body>
