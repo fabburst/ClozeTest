@@ -26,7 +26,7 @@
         <p id="welcome-text">Bienvenue dans l'application de génération de textes à trous, collez votre texte dans le champ ci-dessous, choisissez un mode et générez un texte à trous. Plus d'aide en cliquant sur l'icône <a href="help.html"> ou ici</a>.</p>
     </div>
     <div id="input-container">
-        <textarea id="original-text" placeholder="Collez votre texte ici..."></textarea>
+        <textarea onclick="paste(this)" id="original-text" placeholder="Collez votre texte ici..."></textarea>
         <div class="controls">
             <button id="generate-cloze"><i class="fas fa-magic"></i> Générer</button>
             <select id="mode-select">
@@ -45,6 +45,10 @@
     <script src="script.js"></script>
 
     <script>
+        async function paste(input) {
+  const text = await navigator.clipboard.readText();
+  input.value = text;
+};
         document.addEventListener('DOMContentLoaded', function() {
             const welcomeText = document.getElementById('welcome-text');
             const resetButton = document.getElementById('reset');
