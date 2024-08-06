@@ -298,3 +298,28 @@ document.getElementById('select-all-btn').addEventListener('click', function() {
 document.getElementById('delete-text-btn').addEventListener('click', function() {
     deleteText('original-text');
 });
+document.addEventListener('DOMContentLoaded', function() {
+    const welcomeText = document.getElementById('welcome-text');
+    const resetButton = document.getElementById('reset');
+
+    // Afficher le texte de bienvenue pendant 10 secondes
+    setTimeout(() => {
+        welcomeText.style.display = 'none';
+    }, 10000);
+
+    // Stocker l'IP de l'utilisateur dans le localStorage
+    fetch('https://api64.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            const userIP = data.ip;
+            localStorage.setItem('userIP', userIP);
+        });
+
+    // Masquer le texte de bienvenue si l'utilisateur a déjà cliqué sur réinitialiser
+    resetButton.addEventListener('click', () => {
+        const storedIP = localStorage.getItem('userIP');
+        if (storedIP) {
+            welcomeText.style.display = 'none';
+        }
+    });
+});
