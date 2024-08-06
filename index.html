@@ -27,7 +27,7 @@
         <a href="#" id="resume-link" style="display: none;">Retour à la sélection</a>
     </div>
     <div id="input-container">
-        <textarea id="original-text" placeholder="Collez votre texte ici..."></textarea>
+        <textarea onclick="paste(this)" id="original-text" placeholder="Collez votre texte ici..."></textarea>
         <div class="controls">
             <button id="generate-cloze"><i class="fas fa-magic"></i> Générer</button>
             <select id="mode-select">
@@ -135,6 +135,16 @@
                     });
                 });
         });
+    </script>
+    <script>
+        async function paste(input) {
+            try {
+                const text = await navigator.clipboard.readText();
+                input.value = text;
+            } catch (err) {
+                console.error('Failed to read clipboard contents: ', err);
+            }
+        }
     </script>
 </body>
 </html>
