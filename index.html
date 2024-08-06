@@ -7,6 +7,52 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Style pour la barre d'outils */
+        .toolbar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .toolbar button {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toolbar button i {
+            font-size: 16px;
+        }
+
+        .toolbar button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .toolbar .spacer {
+            width: 24px; /* taille d'une icône */
+        }
+
+        .toolbar .delete-btn {
+            color: #d9534f; /* couleur rosé rouge */
+        }
+
+        #input-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #original-text {
+            margin-top: 0;
+        }
+    </style>
 </head>
 <body>
     <header class="navbar">
@@ -27,6 +73,13 @@
         <a href="#" id="resume-link" style="display: none;">Retour à la sélection</a>
     </div>
     <div id="input-container">
+        <!-- Ajout de la barre d'outils -->
+        <div class="toolbar">
+            <button id="back-to-selection-btn" title="Retour à la sélection"><i class="fas fa-undo"></i></button>
+            <button id="select-all-btn" title="Sélectionner tout le texte"><i class="fas fa-highlighter"></i></button>
+            <div class="spacer"></div>
+            <button id="delete-text-btn" title="Effacer le texte" class="delete-btn"><i class="fas fa-trash"></i></button>
+        </div>
         <textarea onclick="paste(this)" id="original-text" placeholder="Collez votre texte ici..."></textarea>
         <div class="controls">
             <button id="generate-cloze"><i class="fas fa-magic"></i> Générer</button>
@@ -145,6 +198,52 @@
                 console.error('Failed to read clipboard contents: ', err);
             }
         }
+    </script>
+
+    <!-- Nouveau script pour sélectionner tout le texte, retour à la sélection et effacer le contenu -->
+    <script>
+        function selectAllText(textareaId) {
+            // Récupérer la zone de texte par son ID
+            var textarea = document.getElementById(textareaId);
+            
+            // Vérifier si la zone de texte existe
+            if (textarea) {
+                // Sélectionner tout le texte dans la zone de texte
+                textarea.select();
+                
+                // Pour certains navigateurs (comme iOS), vous devrez aussi exécuter la commande copy
+                document.execCommand('copy');
+            }
+        }
+
+        function returnToSelection() {
+            // Simuler le clic sur le lien de retour à la sélection
+            document.getElementById('resume-link').click();
+        }
+
+        function deleteText(textareaId) {
+            // Récupérer la zone de texte par son ID
+            var textarea = document.getElementById(textareaId);
+            
+            // Vérifier si la zone de texte existe
+            if (textarea) {
+                // Effacer le contenu de la zone de texte
+                textarea.value = '';
+            }
+        }
+
+        // Ajouter des événements au clic sur les boutons de la barre d'outils
+        document.getElementById('back-to-selection-btn').addEventListener('click', function() {
+            returnToSelection();
+        });
+
+        document.getElementById('select-all-btn').addEventListener('click', function() {
+            selectAllText('original-text');
+        });
+
+        document.getElementById('delete-text-btn').addEventListener('click', function() {
+            deleteText('original-text');
+        });
     </script>
 </body>
 </html>
