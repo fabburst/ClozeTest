@@ -24,9 +24,10 @@
     <div id="header">
         <h1>Générateur de texte à trous</h1>
         <p id="welcome-text">Bienvenue dans l'application de génération de textes à trous, collez votre texte dans le champ ci-dessous, choisissez un mode et générez un texte à trous. Plus d'aide en cliquant sur l'icône <a href="help.html"> ou ici</a>.</p>
+        <a href="#" id="resume-link" style="display: none;">Retour à la sélection</a>
     </div>
     <div id="input-container">
-        <textarea onclick="paste(this)" id="original-text" placeholder="Collez votre texte ici..."></textarea>
+        <textarea id="original-text" placeholder="Collez votre texte ici..."></textarea>
         <div class="controls">
             <button id="generate-cloze"><i class="fas fa-magic"></i> Générer</button>
             <select id="mode-select">
@@ -42,37 +43,97 @@
     <button id="toggle-original-text" style="display: none;"><i class="fas fa-eye"></i> Afficher le texte original</button>
     <div id="original-text-container" style="display: none;"></div>
     <button id="reset"><i class="fas fa-redo"></i> Réinitialiser</button>
+
     <script src="script.js"></script>
 
+    <!-- Script pour la fonctionnalité de reprise du texte précédent -->
     <script>
-        async function paste(input) {
-  const text = await navigator.clipboard.readText();
-  input.value = text;
-};
         document.addEventListener('DOMContentLoaded', function() {
-            const welcomeText = document.getElementById('welcome-text');
+            const originalText = document.getElementById('original-text');
+            const clozeText = document.getElementById('cloze-text');
+            const validateWordsButton = document.getElementById('validate-words');
+            const toggleOriginalTextButton = document.getElementById('toggle-original-text');
+            const resumeLink = document.getElementById('resume-link');
+            const generateButton = document.getElementById('generate-cloze');
             const resetButton = document.getElementById('reset');
 
-            // Afficher le texte de bienvenue pendant 10 secondes
-            setTimeout(() => {
-                welcomeText.style.display = 'none';
-            }, 10000);
+            // Function to save the current state
+            function saveState(userIP) {
+                const state = {
+                    originalText: originalText.value,
+                    clozeText: clozeText.innerHTML,
+                    showOriginalTextButton: toggleOriginalTextButton.style.display,
+                    validateWordsButton: validateWordsButton.style.display,
+                };
+                localStorage.setItem(`clozeTextState_${userIP}`, JSON.stringify(state));
+            }
 
-            // Stocker l'IP de l'utilisateur dans le localStorage
+            // Function to load the saved state
+            function loadState(userIP) {
+                const savedState = localStorage.getItem(`clozeTextState_${userIP}`);
+                if (savedState) {
+                    const state = JSON.parse(savedState);
+                    originalText.value = state.originalText;
+                    clozeText.innerHTML = state.clozeText;
+                    toggleOriginalTextButton.style.display = state.showOriginalTextButton;
+                    validateWordsButton.style.display = state.validateWordsButton;
+
+                    // Reinitialize cloze text with event listeners
+                    reinitializeClozeText();
+                }
+            }
+
+            // Reinitialize cloze text with event listeners
+            function reinitializeClozeText() {
+                const spans = clozeText.querySelectorAll('span');
+                spans.forEach(span => {
+                    span.addEventListener('click', function() {
+                        this.classList.toggle('selected-word');
+                    });
+                });
+            }
+
+            // Get user IP and store it
             fetch('https://api64.ipify.org?format=json')
                 .then(response => response.json())
                 .then(data => {
                     const userIP = data.ip;
                     localStorage.setItem('userIP', userIP);
-                });
+                    
+                    // Show the resume link if there is a saved state
+                    if (localStorage.getItem(`clozeTextState_${userIP}`)) {
+                        resumeLink.style.display = 'block';
+                        resumeLink.href = `#${userIP}`;
+                    }
 
-            // Masquer le texte de bienvenue si l'utilisateur a déjà cliqué sur réinitialiser
-            resetButton.addEventListener('click', () => {
-                const storedIP = localStorage.getItem('userIP');
-                if (storedIP) {
-                    welcomeText.style.display = 'none';
-                }
-            });
+                    // Load state if the URL contains the user IP
+                    if (window.location.hash === `#${userIP}`) {
+                        loadState(userIP);
+                    }
+
+                    // Save state on button clicks
+                    generateButton.addEventListener('click', () => saveState(userIP));
+                    resetButton.addEventListener('click', () => saveState(userIP));
+                    validateWordsButton.addEventListener('click', () => saveState(userIP));
+                    toggleOriginalTextButton.addEventListener('click', () => saveState(userIP));
+
+                    // Load original text when clicking on resume link
+                    resumeLink.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        const savedState = localStorage.getItem(`clozeTextState_${userIP}`);
+                        if (savedState) {
+                            const state = JSON.parse(savedState);
+                            originalText.value = state.originalText;
+                            clozeText.innerHTML = '';
+                            toggleOriginalTextButton.style.display = 'none';
+                            validateWordsButton.style.display = 'none';
+
+                            // Afficher le champ de texte avec le texte original
+                            document.getElementById('input-container').style.display = 'block';
+                            document.getElementById('output-container').style.display = 'none';
+                        }
+                    });
+                });
         });
     </script>
 </body>
