@@ -241,14 +241,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 });
 
-async function paste(input) {
-    try {
-        const text = await navigator.clipboard.readText();
-        input.value = text;
-    } catch (err) {
-        console.error('Failed to read clipboard contents: ', err);
-    }
-}
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Fonction pour coller le texte depuis le presse-papiers
+    document.getElementById('paste-text-btn').addEventListener('click', async () => {
+        try {
+            const text = await navigator.clipboard.readText();
+            document.getElementById('original-text').value = text;
+        } catch (err) {
+            console.error('Failed to read clipboard contents: ', err);
+        }
+    });
+
+    // Supprimer l'ancienne fonction qui proposait de coller en cliquant dans la zone de texte
+    document.getElementById('original-text').removeAttribute('onclick');
+});
 
 function selectAllText(textareaId) {
     // Récupérer la zone de texte par son ID

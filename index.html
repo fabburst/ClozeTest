@@ -31,10 +31,10 @@
         <div class="toolbar">
             <button id="back-to-selection-btn" title="Retour à la sélection"><i class="fas fa-undo"></i></button>
             <button id="select-all-btn" title="Sélectionner tout le texte"><i class="fas fa-highlighter"></i></button>
-            <div class="spacer"></div>
+            <button id="paste-text-btn" title="Coller le texte"><i class="fas fa-paste"></i></button>
             <button id="delete-text-btn" title="Effacer le texte" class="delete-btn"><i class="fas fa-trash"></i></button>
         </div>
-        <textarea onclick="paste(this)" id="original-text" placeholder="Collez votre texte ici..."></textarea>
+        <textarea id="original-text" placeholder="Collez votre texte ici..."></textarea>
         <div class="controls">
             <button id="generate-cloze"><i class="fas fa-magic"></i> Générer</button>
             <select id="mode-select">
