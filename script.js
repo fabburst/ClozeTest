@@ -285,7 +285,21 @@ function deleteText(textareaId) {
         textarea.value = '';
     }
 }
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('remove-linebreaks-btn').addEventListener('click', removeLineBreaks);
+});
 
+function removeLineBreaks() {
+    var inputText = document.getElementById("original-text").value;
+    var outputText = inputText.replace(/(\r\n|\n|\r)/gm, " "); // Pour supprimer tous les sauts de ligne
+    document.getElementById("original-text").value = outputText;
+}
+
+function removeSomeLineBreaks() {
+    var inputText = document.getElementById("original-text").value;
+    var outputText = inputText.replace(/([^\r\n])(\r\n|\n|\r)([^\r\n])/g, "$1 $3"); // Pour préserver les paragraphes
+    document.getElementById("original-text").value = outputText;
+};
 // Ajouter des événements au clic sur les boutons de la barre d'outils
 document.getElementById('back-to-selection-btn').addEventListener('click', function() {
     returnToSelection();
