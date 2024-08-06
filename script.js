@@ -152,3 +152,143 @@ document.addEventListener('DOMContentLoaded', function () {
             .replace(/'/g, ''); // Replace apostrophes
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const originalText = document.getElementById('original-text');
+    const clozeText = document.getElementById('cloze-text');
+    const validateWordsButton = document.getElementById('validate-words');
+    const toggleOriginalTextButton = document.getElementById('toggle-original-text');
+    const resumeLink = document.getElementById('resume-link');
+    const generateButton = document.getElementById('generate-cloze');
+    const resetButton = document.getElementById('reset');
+
+    // Function to save the current state
+    function saveState(userIP) {
+        const state = {
+            originalText: originalText.value,
+            clozeText: clozeText.innerHTML,
+            showOriginalTextButton: toggleOriginalTextButton.style.display,
+            validateWordsButton: validateWordsButton.style.display,
+        };
+        localStorage.setItem(`clozeTextState_${userIP}`, JSON.stringify(state));
+    }
+
+    // Function to load the saved state
+    function loadState(userIP) {
+        const savedState = localStorage.getItem(`clozeTextState_${userIP}`);
+        if (savedState) {
+            const state = JSON.parse(savedState);
+            originalText.value = state.originalText;
+            clozeText.innerHTML = state.clozeText;
+            toggleOriginalTextButton.style.display = state.showOriginalTextButton;
+            validateWordsButton.style.display = state.validateWordsButton;
+
+            // Reinitialize cloze text with event listeners
+            reinitializeClozeText();
+        }
+    }
+
+    // Reinitialize cloze text with event listeners
+    function reinitializeClozeText() {
+        const spans = clozeText.querySelectorAll('span');
+        spans.forEach(span => {
+            span.addEventListener('click', function() {
+                this.classList.toggle('selected-word');
+            });
+        });
+    }
+
+    // Get user IP and store it
+    fetch('https://api64.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            const userIP = data.ip;
+            localStorage.setItem('userIP', userIP);
+            
+            // Show the resume link if there is a saved state
+            if (localStorage.getItem(`clozeTextState_${userIP}`)) {
+                resumeLink.style.display = 'block';
+                resumeLink.href = `#${userIP}`;
+            }
+
+            // Load state if the URL contains the user IP
+            if (window.location.hash === `#${userIP}`) {
+                loadState(userIP);
+            }
+
+            // Save state on button clicks
+            generateButton.addEventListener('click', () => saveState(userIP));
+            resetButton.addEventListener('click', () => saveState(userIP));
+            validateWordsButton.addEventListener('click', () => saveState(userIP));
+            toggleOriginalTextButton.addEventListener('click', () => saveState(userIP));
+
+            // Load original text when clicking on resume link
+            resumeLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                const savedState = localStorage.getItem(`clozeTextState_${userIP}`);
+                if (savedState) {
+                    const state = JSON.parse(savedState);
+                    originalText.value = state.originalText;
+                    clozeText.innerHTML = '';
+                    toggleOriginalTextButton.style.display = 'none';
+                    validateWordsButton.style.display = 'none';
+
+                    // Afficher le champ de texte avec le texte original
+                    document.getElementById('input-container').style.display = 'block';
+                    document.getElementById('output-container').style.display = 'none';
+                }
+            });
+        });
+});
+
+async function paste(input) {
+    try {
+        const text = await navigator.clipboard.readText();
+        input.value = text;
+    } catch (err) {
+        console.error('Failed to read clipboard contents: ', err);
+    }
+}
+
+function selectAllText(textareaId) {
+    // Récupérer la zone de texte par son ID
+    var textarea = document.getElementById(textareaId);
+    
+    // Vérifier si la zone de texte existe
+    if (textarea) {
+        // Sélectionner tout le texte dans la zone de texte
+        textarea.select();
+        
+        // Pour certains navigateurs (comme iOS), vous devrez aussi exécuter la commande copy
+        document.execCommand('copy');
+    }
+}
+
+function returnToSelection() {
+    // Simuler le clic sur le lien de retour à la sélection
+    document.getElementById('resume-link').click();
+}
+
+function deleteText(textareaId) {
+    // Récupérer la zone de texte par son ID
+    var textarea = document.getElementById(textareaId);
+    
+    // Vérifier si la zone de texte existe
+    if (textarea) {
+        // Effacer le contenu de la zone de texte
+        textarea.value = '';
+    }
+}
+
+// Ajouter des événements au clic sur les boutons de la barre d'outils
+document.getElementById('back-to-selection-btn').addEventListener('click', function() {
+    returnToSelection();
+});
+
+document.getElementById('select-all-btn').addEventListener('click', function() {
+    selectAllText('original-text');
+});
+
+document.getElementById('delete-text-btn').addEventListener('click', function() {
+    deleteText('original-text');
+});

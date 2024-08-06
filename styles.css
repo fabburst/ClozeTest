@@ -351,3 +351,48 @@ body.dark-mode .icon-lapin {
 .dark-mode #home-button:hover, .dark-mode #home-button-bottom:hover {
     background-color: #25303B;
 }
+
+/* Style pour la barre d'outils */
+.toolbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.toolbar button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toolbar button i {
+    font-size: 16px;
+}
+
+.toolbar button:hover {
+    background-color: #e0e0e0;
+}
+
+.toolbar .spacer {
+    width: 24px; /* taille d'une icône */
+}
+
+.toolbar .delete-btn {
+    color: #d9534f; /* couleur rosé rouge */
+}
+
+#input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#original-text {
+    margin-top: 0;
+}
