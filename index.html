@@ -9,14 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Bandeau de navigation -->
     <header class="navbar">
         <div class="navbar-left">
             <img src="rabbit.svg" alt="Lapin" class="icon-lapin" id="icon-lapin">
             <span>FB</span>
         </div>
         <div class="navbar-right">
-            <a href="https://github.com/fabburst/ClozeTest">GitHub</a>
             <a href="help.html" id="help-toggle"><i class="fas fa-question-circle"></i></a>
+            <a href="pomodoro.html" id="pomodoro-toggle"><i class="fas fa-clock"></i></a>
             <button id="toggle-dark-mode"><i class="fas fa-sun" id="icon"></i></button>
         </div>
     </header>
@@ -51,6 +52,133 @@
     <button id="toggle-original-text" style="display: none;"><i class="fas fa-eye"></i> Afficher le texte original</button>
     <div id="original-text-container" style="display: none;"></div>
     <button id="reset"><i class="fas fa-redo"></i> Réinitialiser</button>
+    
     <script src="script.js"></script>
+    
+    <script>
+        async function getUserIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                console.error('Failed to fetch IP address:', error);
+                return null;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            const originalTextArea = document.getElementById('original-text');
+            const modeSelect = document.getElementById('mode-select');
+            const selectedWords = [];
+            const currentIP = await getUserIP();
+
+            // Fonction pour sauvegarder l'état de la page dans localStorage
+            function savePageState(ip) {
+                const originalText = originalTextArea.value;
+                const mode = modeSelect.value;
+
+                // Sauvegarder le texte original, le mode sélectionné et l'adresse IP
+                localStorage.setItem('originalText', originalText);
+                localStorage.setItem('mode', mode);
+                localStorage.setItem('selectedWords', JSON.stringify(selectedWords));
+                localStorage.setItem('userIP', ip);
+            }
+
+            // Fonction pour restaurer l'état de la page à partir de localStorage
+            function restorePageState(ip) {
+                const savedIP = localStorage.getItem('userIP');
+                if (savedIP !== ip) {
+                    return;
+                }
+
+                const savedText = localStorage.getItem('originalText');
+                const savedMode = localStorage.getItem('mode');
+                const savedSelectedWords = JSON.parse(localStorage.getItem('selectedWords'));
+
+                if (savedText) {
+                    originalTextArea.value = savedText;
+                }
+
+                if (savedMode) {
+                    modeSelect.value = savedMode;
+                }
+
+                if (savedSelectedWords) {
+                    selectedWords.push(...savedSelectedWords);
+                    // Implémenter la logique pour mettre en évidence les mots sélectionnés
+                }
+            }
+
+            // Restaurer l'état de la page lors du chargement
+            if (currentIP) {
+                restorePageState(currentIP);
+            }
+
+            // Sauvegarder l'état de la page avant de quitter
+            window.addEventListener('beforeunload', function() {
+                if (currentIP) {
+                    savePageState(currentIP);
+                }
+            });
+
+            // Exemple d'ajout de mot sélectionné à la liste
+            originalTextArea.addEventListener('mouseup', function () {
+                const selectedText = window.getSelection().toString();
+                if (selectedText) {
+                    selectedWords.push(selectedText);
+                }
+            });
+
+            // Dark mode toggle code (existing)
+            const toggleDarkMode = document.getElementById('toggle-dark-mode');
+            const body = document.body;
+
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                body.classList.add('dark-mode');
+                const icon = toggleDarkMode.querySelector('i');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+
+            toggleDarkMode.addEventListener('click', function () {
+                body.classList.toggle('dark-mode');
+                const icon = toggleDarkMode.querySelector('i');
+                if (body.classList.contains('dark-mode')) {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+
+            // Nav toggle between help and index
+            const helpToggle = document.getElementById('help-toggle');
+            helpToggle.addEventListener('click', function (event) {
+                event.preventDefault();
+                const currentUrl = window.location.href;
+                if (currentUrl.includes('help.html')) {
+                    window.location.href = 'index.html';
+                } else {
+                    window.location.href = 'help.html';
+                }
+            });
+
+            // Nav toggle between pomodoro and index
+            const pomodoroToggle = document.getElementById('pomodoro-toggle');
+            pomodoroToggle.addEventListener('click', function (event) {
+                event.preventDefault();
+                const currentUrl = window.location.href;
+                if (currentUrl.includes('pomodoro.html')) {
+                    window.location.href = 'index.html';
+                } else {
+                    window.location.href = 'pomodoro.html';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
