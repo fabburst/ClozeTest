@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            max-width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        /* Bandeau de navigation */
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: inherit;
+            font-family: 'Montserrat', sans-serif;
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .navbar-left span {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #26619c;
+            letter-spacing: 0.1em;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-right a {
+            margin-right: 20px;
+            text-decoration: none;
+            color: #26619c;
+            font-size: 1em;
+        }
+
+        .navbar-right a i {
+            font-size: 1.2em;
+        }
+
+        .navbar-right button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #26619c;
+        }
+
+        #header {
+            width: 90%;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #26619c;
+        }
+
+        #pomodoro-timer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #timer-display {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #26619c;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            background-color: #26619c;
+            color: white;
+        }
+
+        .buttons button:hover {
+            background-color: #4c7196;
+        }
+
+        /* Mode sombre */
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .dark-mode .navbar {
+            background-color: #1f1f1f;
+        }
+
+        .dark-mode #header h1,
+        .dark-mode #header p {
+            color: #ffffff;
+        }
+
+        .dark-mode #timer-display {
+            color: #ffffff;
+        }
+
+        .dark-mode .buttons button {
+            background-color: #1C3751;
+        }
+
+        .dark-mode .buttons button:hover {
+            background-color: #25303B;
+        }
+
+        /* Style pour l'icône de lapin */
+        .icon-lapin {
+            width: 1.5em;
+            height: auto;
+            fill: #26619c;
+            margin-right: 10px;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        body.dark-mode .icon-lapin {
+            fill: #ffffff;
+        }
+
+        /* Style pour le bouton Accueil */
+        #home-button-bottom {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 10px 0;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            background-color: #26619c;
+            color: white;
+        }
+
+        #home-button-bottom:hover {
+            background-color: #4c7196;
+        }
+
+        /* Mode sombre pour le bouton Accueil */
+        .dark-mode #home-button-bottom {
+            background-color: #1C3751;
+            color: white;
+        }
+
+        .dark-mode #home-button-bottom:hover {
+            background-color: #25303B;
+        }
+    </style>
+</head>
+<body>
+    <!-- Bandeau de navigation -->
+    <header class="navbar">
+        <div class="navbar-left">
+            <img src="rabbit.svg" alt="Lapin" class="icon-lapin" id="icon-lapin">
+            <span>FB</span>
+        </div>
+        <div class="navbar-right">
+            <a href="index.html" id="help-toggle"><i class="fas fa-question-circle"></i></a>
+            <a href="pomodoro.html" id="pomodoro-toggle"><i class="fas fa-clock"></i></a>
+            <button id="toggle-dark-mode"><i class="fas fa-sun" id="icon"></i></button>
+        </div>
+    </header>
+
+    <div id="header">
+        <h1>Pomodoro</h1>
+    </div>
+
+    <div id="pomodoro-timer">
+        <h2>Pomodoro Timer</h2>
+        <div id="timer-display">25:00</div>
+        <div class="buttons">
+            <button id="start-timer">Start</button>
+            <button id="reset-timer">Reset</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="center-button">
+            <button id="home-button-bottom"><i class="fas fa-home"></i> Accueil</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let timer;
+            let initialTime = localStorage.getItem('initialTime') ? parseInt(localStorage.getItem('initialTime')) : 1500; // 25 minutes in seconds
+            let startTime = localStorage.getItem('startTime') ? parseInt(localStorage.getItem('startTime')) : null;
+            const timerDisplay = document.getElementById('timer-display');
+            const startButton = document.getElementById('start-timer');
+            const resetButton = document.getElementById('reset-timer');
+
+            function calculateTimeLeft() {
+                const timePassed = Math.floor((Date.now() - startTime) / 1000);
+                return initialTime - timePassed;
+            }
+
+            function updateTimerDisplay(timeLeft) {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            }
+
+            function startTimer() {
+                if (!startTime) {
+                    startTime = Date.now();
+                    localStorage.setItem('startTime', startTime);
+                    localStorage.setItem('initialTime', initialTime);
+                }
+
+                const timeLeft = calculateTimeLeft();
+                updateTimerDisplay(timeLeft);
+
+                timer = setInterval(() => {
+                    const timeLeft = calculateTimeLeft();
+                    updateTimerDisplay(timeLeft);
+
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        localStorage.removeItem('startTime');
+                        localStorage.removeItem('initialTime');
+                    }
+                }, 1000);
+            }
+
+            function resetTimer() {
+                clearInterval(timer);
+                timer = null;
+                initialTime = 1500; // Reset to 25 minutes
+                startTime = null;
+                localStorage.removeItem('startTime');
+                localStorage.removeItem('initialTime');
+                updateTimerDisplay(initialTime);
+            }
+
+            startButton.addEventListener('click', startTimer);
+            resetButton.addEventListener('click', resetTimer);
+
+            // Continue running the timer if it was running
+            if (localStorage.getItem('startTime')) {
+                startTimer();
+            } else {
+                updateTimerDisplay(initialTime);
+            }
+
+            // Dark mode toggle code (existing)
+            const toggleDarkMode = document.getElementById('toggle-dark-mode');
+            const body = document.body;
+
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                body.classList.add('dark-mode');
+                const icon = toggleDarkMode.querySelector('i');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+
+            toggleDarkMode.addEventListener('click', function () {
+                body.classList.toggle('dark-mode');
+                const icon = toggleDarkMode.querySelector('i');
+                if (body.classList.contains('dark-mode')) {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+
+            // Nav toggle between help and index
+            const helpToggle = document.getElementById('help-toggle');
+            helpToggle.addEventListener('click', function (event) {
+                event.preventDefault();
+                const currentUrl = window.location.href;
+                if (currentUrl.includes('help.html')) {
+                    window.location.href = 'index.html';
+                } else {
+                    window.location.href = 'help.html';
+                }
+            });
+
+            // Nav toggle between pomodoro and index
+            const pomodoroToggle = document.getElementById('pomodoro-toggle');
+            pomodoroToggle.addEventListener('click', function (event) {
+                event.preventDefault();
+                const currentUrl = window.location.href;
+                if (currentUrl.includes('pomodoro.html')) {
+                    window.location.href = 'index.html';
+                } else {
+                    window.location.href = 'pomodoro.html';
+                }
+            });
+
+            // Button to go back to index page
+            const homeButtonBottom = document.getElementById('home-button-bottom');
+            if (homeButtonBottom) {
+                homeButtonBottom.addEventListener('click', function () {
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
