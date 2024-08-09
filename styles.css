@@ -22,41 +22,7 @@ body {
     border-bottom: none;
     margin-bottom: 0;
 }
-.navbar a, .navbar i {
-    color: #26619c;
-}
-.icon-tomato {
-    width: 24px;
-    height: 24px;
-    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/131442/tomato.svg');
-    background-size: cover;
-    cursor: pointer;
-    filter: invert(20%) sepia(60%) saturate(600%) hue-rotate(190deg) brightness(75%) contrast(90%);
-    margin-right: 10px; /* Espacement entre l'icône de tomate et le timer */
-}
 
-#toggle-pomodoro {
-    font-size: 1.6em;
-    cursor: pointer;
-    color: #007BFF; /* Assurez-vous que la couleur correspond */
-    vertical-align: middle; /* Aligne verticalement l'icône */
-}
-#pomodoro-container {
-    display: flex; /* Utilisation de flexbox pour aligner les éléments en ligne */
-    align-items: center; /* Assure que les éléments sont centrés verticalement */
-}
-#pomodoro-timer {
-    display: flex;
-    align-items: center;
-}
-#timer-display {
-    color: #26619c;; /* Assurez-vous que la couleur est la même que celle des icônes de la navbar */
-    font-weight: bold;
-    font-size: 1.3em; /* Ajustez la taille si nécessaire */
-    display: inline-block;
-    vertical-align: bottom; /* Aligne verticalement le bas du texte avec le bas des icônes */
-    margin-top: -1px; /* Ajustez cette valeur pour décaler l'affichage vers le bas */
-}
 .navbar-left span {
     font-size: 1.5em;
     font-weight: bold;
