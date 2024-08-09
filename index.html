@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Ajout des styles pour l'icône de tomate */
+        .icon-tomato {
+            width: 24px;
+            height: 24px;
+            background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/131442/tomato.svg');
+            background-size: cover;
+            cursor: pointer;
+            filter: invert(32%) sepia(77%) saturate(486%) hue-rotate(184deg) brightness(87%) contrast(87%);
+        }
+    </style>
 </head>
 <body>
     <header class="navbar">
@@ -14,6 +25,21 @@
             <img src="rabbit.svg" alt="Lapin" class="icon-lapin" id="icon-lapin">
             <span>FB</span>
         </div>
+
+        <!-- Icône de tomate et Pomodoro Timer au centre -->
+        <div class="navbar-center">
+            <!-- Icône de tomate avec image de fond -->
+            <div id="toggle-pomodoro" class="icon-tomato"></div>
+
+            <!-- Timer Pomodoro caché par défaut -->
+            <div id="pomodoro-timer" style="display: none;">
+                <span id="timer-display">25:00</span>
+                <button id="start-timer"><i class="fas fa-play"></i></button>
+                <button id="stop-timer"><i class="fas fa-stop"></i></button>
+                <button id="reset-timer"><i class="fas fa-sync-alt"></i></button>
+            </div>
+        </div>
+
         <div class="navbar-right">
             <a href="https://github.com/fabburst/ClozeTest">GitHub</a>
             <a href="help.html" id="help-toggle"><i class="fas fa-question-circle"></i></a>
@@ -51,6 +77,70 @@
     <button id="toggle-original-text" style="display: none;"><i class="fas fa-eye"></i> Afficher le texte original</button>
     <div id="original-text-container" style="display: none;"></div>
     <button id="reset"><i class="fas fa-redo"></i> Réinitialiser</button>
-    <script src="script.js"></script>
+
+    <!-- Ajout du script JS pour le Pomodoro Timer et l'affichage de l'icône de tomate -->
+    <script>
+        // Variables pour le timer Pomodoro
+        let timer;
+        let timeLeft = 1500; // 25 minutes en secondes
+        const timerDisplay = document.getElementById('timer-display');
+        const startButton = document.getElementById('start-timer');
+        const stopButton = document.getElementById('stop-timer');
+        const resetButton = document.getElementById('reset-timer');
+        const pomodoroTimer = document.getElementById('pomodoro-timer');
+        const togglePomodoro = document.getElementById('toggle-pomodoro');
+
+        // Fonction pour mettre à jour l'affichage du timer
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        // Démarrer le timer
+        function startTimer() {
+            if (!timer) {
+                timer = setInterval(() => {
+                    timeLeft--;
+                    updateDisplay();
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        timer = null;
+                        alert('Temps écoulé !');
+                    }
+                }, 1000);
+            }
+        }
+
+        // Arrêter le timer
+        function stopTimer() {
+            clearInterval(timer);
+            timer = null;
+        }
+
+        // Réinitialiser le timer
+        function resetTimer() {
+            stopTimer();
+            timeLeft = 1500;
+            updateDisplay();
+        }
+
+        // Événements des boutons du timer
+        startButton.addEventListener('click', startTimer);
+        stopButton.addEventListener('click', stopTimer);
+        resetButton.addEventListener('click', resetTimer);
+
+        // Mettre à jour l'affichage dès le chargement de la page
+        updateDisplay();
+
+        // Événement pour afficher/masquer le timer Pomodoro
+        togglePomodoro.addEventListener('click', function() {
+            if (pomodoroTimer.style.display === 'none' || pomodoroTimer.style.display === '') {
+                pomodoroTimer.style.display = 'inline-block'; // Affiche le timer et les icônes
+            } else {
+                pomodoroTimer.style.display = 'none'; // Cache le timer et les icônes
+            }
+        });
+    </script>
 </body>
 </html>
