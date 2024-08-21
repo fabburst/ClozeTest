@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de Temps de Parole</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Styles globaux */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            max-width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        /* Bandeau de navigation */
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: inherit;
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .navbar-left span {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #26619c;
+            letter-spacing: 0.1em;
+        }
+
+        .navbar-right a {
+            margin-right: 20px;
+            text-decoration: none;
+            color: #26619c;
+            font-size: 1em;
+        }
+
+        .navbar-right a i {
+            font-size: 1.2em;
+        }
+
+        .navbar-right button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #26619c;
+        }
+
+        /* Style pour le chronomètre */
+        #chronometer {
+            text-align: center;
+            margin-top: 50px;
+        }
+        #time {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #26619c;
+        }
+        .fa-button {
+            font-size: 2em;
+            cursor: pointer;
+            margin: 0 10px;
+            color: #26619c;
+        }
+        .fa-button:hover {
+            color: #4c7196;
+        }
+
+        /* Mode sombre */
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .dark-mode #time {
+            color: #ffffff;
+        }
+
+        .dark-mode .fa-button {
+            color: #ffffff;
+        }
+
+        .dark-mode .fa-button:hover {
+            color: #25303B;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-left">
+            <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" viewBox="0 0 32 32" style="vertical-align: middle;">
+                <path fill="#26619c" d="m18.05 21l-2.73-4.74c0-1.73-1.07-2.84-2.37-2.84c-.9 0-1.68.5-2.08 1.24c.33-.19.72-.29 1.13-.29c1.3 0 2.36 1.06 2.36 2.36c0 1.31-1.05 2.38-2.36 2.38h3.3V21H6.79c-.24 0-.49-.09-.67-.28a.95.95 0 0 1 0-1.34l.5-.5c-.34-.15-.62-.38-.9-.62c-.22.5-.72.85-1.3.85a1.425 1.425 0 0 1 0-2.85l.47.08v-1.97a4.73 4.73 0 0 1 4.74-4.74h.02c2.12.01 3.77.84 3.77-.47c0-.93.2-1.3.54-1.82c-.73-.34-1.56-.55-2.43-.55c-.53 0-.95-.42-.95-.95c0-.43.28-.79.67-.91l-.67-.04c-.52 0-.95-.42-.95-.94c0-.53.43-.95.95-.95h.95c2.1 0 3.94 1.15 4.93 2.85l.28-.01c.71 0 1.37.23 1.91.61l.45.38c2.17 1.95 1.9 3.27 1.9 3.28c0 1.28-1.06 2.33-2.35 2.33l-.49-.05v.08c0 1.11-.48 2.1-1.23 2.8L20.24 21zm.11-13.26c-.53 0-.95.42-.95.94c0 .53.42.95.95.95c.52 0 .95-.42.95-.95c0-.52-.43-.94-.95-.94"/>
+            </svg>
+            <span>FB</span>
+            <a href="https://github.com/fabburst/ClozeTest" ><i class="fa-brands fa-github" style="font-size: 1.5em; color: #333;"></i></a>
+        </div>
+        <div class="navbar-right">
+            <a href="index.html"><i class="fa-solid fa-home"></i></a>
+            <a href="speech.html"><i class="fa-solid fa-comments"></i></a>
+            <a href="help.html" id="help-toggle"><i class="fas fa-question-circle"></i></a>
+            <a href="pomodoro.html" id="pomodoro-toggle"><i class="fas fa-clock"></i></a>
+            <button id="toggle-dark-mode"><i class="fas fa-sun" id="icon"></i></button>
+        </div>
+    </header>
+
+    <div id="chronometer">
+        <div id="time">00:00:00</div>
+        <div>
+            <i class="fas fa-play fa-button" id="start"></i>
+            <i class="fas fa-pause fa-button" id="pause"></i>
+            <i class="fas fa-stop fa-button" id="reset"></i>
+        </div>
+    </div>
+
+    <script>
+        // Variables pour le chronomètre
+        let startTime;
+        let updatedTime;
+        let difference;
+        let tInterval;
+        let running = false;
+
+        const startButton = document.getElementById('start');
+        const pauseButton = document.getElementById('pause');
+        const resetButton = document.getElementById('reset');
+        const timeDisplay = document.getElementById('time');
+
+        // Fonction pour démarrer le chronomètre
+        startButton.onclick = function() {
+            if (!running) {
+                startTime = new Date().getTime();
+                tInterval = setInterval(getShowTime, 1);
+                running = true;
+            }
+        };
+
+        // Fonction pour mettre le chronomètre en pause
+        pauseButton.onclick = function() {
+            if (running) {
+                clearInterval(tInterval);
+                running = false;
+            }
+        };
+
+        // Fonction pour réinitialiser le chronomètre
+        resetButton.onclick = function() {
+            clearInterval(tInterval);
+            running = false;
+            timeDisplay.textContent = "00:00:00";
+        };
+
+        // Fonction pour afficher le temps
+        function getShowTime() {
+            updatedTime = new Date().getTime();
+            difference = updatedTime - startTime;
+            
+            let hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            hours = (hours < 10) ? "0" + hours : hours;
+            minutes = (minutes < 10) ? "0" + minutes : minutes;
+            seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+            timeDisplay.textContent = hours + ":" + minutes + ":" + seconds;
+        }
+    </script>
+
+</body>
+</html>
