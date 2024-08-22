@@ -107,6 +107,24 @@
             background-color: #4c7196;
         }
 
+        /* Slider positioned under buttons */
+        #slider-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #timeSlider {
+            width: 300px;
+        }
+
+        #timeValue {
+            font-size: 24px;
+            color: #26619c;
+            margin-top: 10px;
+        }
+
         /* Mode sombre */
         body.dark-mode {
             background-color: #121212;
@@ -211,6 +229,12 @@
             <button id="start-timer">Start</button>
             <button id="reset-timer">Reset</button>
         </div>
+
+        <!-- Slider for adjusting time -->
+        <div id="slider-container">
+            <label for="timeSlider">Temps de session (minutes) : <span id="timeValue">25</span></label>
+            <input type="range" id="timeSlider" min="5" max="60" value="25" oninput="updateTimeValue(this.value)">
+        </div>
     </div>
 
     <script>
@@ -221,6 +245,8 @@
             const timerDisplay = document.getElementById('timer-display');
             const startButton = document.getElementById('start-timer');
             const resetButton = document.getElementById('reset-timer');
+            const timeSlider = document.getElementById('timeSlider');
+            const timeValue = document.getElementById('timeValue');
 
             function calculateTimeLeft() {
                 const timePassed = Math.floor((Date.now() - startTime) / 1000);
@@ -258,12 +284,22 @@
             function resetTimer() {
                 clearInterval(timer);
                 timer = null;
-                initialTime = 1500; // Reset to 25 minutes
+                initialTime = timeSlider.value * 60; // Set to slider value in minutes
                 startTime = null;
                 localStorage.removeItem('startTime');
                 localStorage.removeItem('initialTime');
                 updateTimerDisplay(initialTime);
             }
+
+            function updateTimeValue(value) {
+                timeValue.textContent = value;
+                initialTime = value * 60;
+                updateTimerDisplay(initialTime);
+            }
+
+            timeSlider.addEventListener('input', function() {
+                updateTimeValue(this.value);
+            });
 
             startButton.addEventListener('click', startTimer);
             resetButton.addEventListener('click', resetTimer);
