@@ -174,7 +174,8 @@
         <label for="inputText">Entrez le texte :</label>
         <textarea id="inputText" rows="5"></textarea>
 
-        <button onclick="calculate()">Calculer</button>
+        <button onclick="calculate()"><i class="fa-brands fa-teamspeak"></i> Calculer</button>
+        <button onclick="clearTextArea()"><i class="fas fa-eraser"></i> Effacer</button>
 
         <h2>Résultats</h2>
         <p id="resultTime">Durée de parole : </p>
@@ -222,6 +223,12 @@
             document.getElementById("resultWords").innerText = `${translation.words} ${wordsCount}`;
             document.getElementById("resultCharacters").innerText = `${translation.characters} ${charactersCount}`;
         }
+        function clearTextArea() {
+        document.getElementById("inputText").value = "";
+        document.getElementById("resultTime").innerText = "Durée de parole : ";
+        document.getElementById("resultWords").innerText = "Mots : ";
+        document.getElementById("resultCharacters").innerText = "Caractères : ";
+    }
 
         document.addEventListener('DOMContentLoaded', function () {
             const toggleDarkMode = document.getElementById('toggle-dark-mode');
